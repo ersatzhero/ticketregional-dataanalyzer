@@ -8,4 +8,4 @@ RUN /bin/sh -c set -eux && \
 WORKDIR /app
 COPY xls2csv.sh /app
 COPY target/ticketregionalpipe-0.0.1-SNAPSHOT.jar /app
-ENTRYPOINT["java", "-jar ticketregionalpipe-0.0.1-SNAPSHOT.jar de.ersatzhero.ticketregionalpipe.TicketregionalpipeApplication"]
+ENTRYPOINT ["java", "-jar ticketregionalpipe-0.0.1-SNAPSHOT.jar de.ersatzhero.ticketregionalpipe.TicketregionalpipeApplication"]
