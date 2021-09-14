@@ -1,0 +1,57 @@
+version: '2.2'
+services:
+  es01:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.14.1
+    container_name: es01
+    environment:
+      - discovery.type=single-node
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    networks:
+      - elastic
+
+  kib01:
+    image: docker.elastic.co/kibana/kibana:7.14.1
+    container_name: kib01
+    ports:
+      - "5601:5601"
+    environment:
+      ELASTICSEARCH_URL: http://es01:9200
+      ELASTICSEARCH_HOSTS: '["http://es01:9200"]'
+    networks:
+      - elastic
+
+  database01:
+    image: mariadb
+    restart: always
+    container_name: database-batch
+    environment:
+      MARIADB_ROOT_PASSWORD: my-secret-pw
+    ports:
+      - "3306:3306"
+    networks:
+      - elastic
+
+  batch01:
+    build: .
+    restart: always
+    container_name: import-batch
+    environment:
+      ELASTICSEARCH_HOST: es01
+      ELASTICSEARCH_PORT: 9200
+      ELASTICSEARCH_SCHEME: https
+      BATCH_CRON: 0 */10 * * * *
+      BATCH_PATH2XLS2CSV: /app/xls2csv.sh
+      BATCH_FOLDER: /app/import
+      CLIENT_GEOLOCATION_COUNTRIES: de,gb,fr,at,ch
+      CLIENT_GEOLOCATION_CALLEREMAIL: <INSERT EMAIL>
+      DB_PASSWORD: my-secret-pw
+      DB_SCHEMA: spring-batch
+    volumes:
+      - /tmp/bestellungen:/app/import
+
+
+networks:
+  elastic:
+    driver: bridge
