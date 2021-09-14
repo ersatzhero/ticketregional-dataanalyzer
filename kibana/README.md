@@ -1,0 +1,1 @@
+In der export.ndjson ist die Konfiguration für das index-pattern und das Dashboard enthalten.
