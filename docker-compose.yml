@@ -27,6 +27,7 @@ services:
     restart: always
     container_name: database-batch
     environment:
+      MARIADB_DATABASE: spring-data
       MARIADB_ROOT_PASSWORD: my-secret-pw
     ports:
       - "3306:3306"
@@ -34,6 +35,10 @@ services:
       - elastic
 
   batch01:
+    depends_on:
+      - database01
+      - es01
+    image: import-ticketregional
     build: .
     restart: always
     container_name: import-batch
@@ -50,6 +55,8 @@ services:
       DB_SCHEMA: spring-batch
     volumes:
       - /tmp/bestellungen:/app/import
+    networks:
+      - elastic
 
 
 networks:

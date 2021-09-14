@@ -8,10 +8,10 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @SpringBootApplication
 @EnableFeignClients
 @EnableCaching
-public class TicketregionalpipeApplication {
+public class ImportTicketregionalApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(TicketregionalpipeApplication.class, args);
+        SpringApplication.run(ImportTicketregionalApplication.class, args);
     }
 
 }

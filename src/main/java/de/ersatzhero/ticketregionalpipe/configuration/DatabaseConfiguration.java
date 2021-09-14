@@ -10,10 +10,10 @@ import javax.sql.DataSource;
 @Configuration
 public class DatabaseConfiguration {
     @Bean
-    public DataSource dataSource(@Value("#{environment.DB_PASSWORD}") String password, @Value("#{environment.DB_SCHEMA}") String schema) {
+    public DataSource dataSource(@Value("#{environment.DB_PASSWORD}") String password) {
         DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
         dataSourceBuilder.driverClassName("org.mariadb.jdbc.Driver");
-        dataSourceBuilder.url("jdbc:mariadb://mariadb:3306/" + schema);
+        dataSourceBuilder.url("jdbc:mariadb://database01:3306/");
         dataSourceBuilder.username("root");
         dataSourceBuilder.password(password);
         return dataSourceBuilder.build();
