@@ -3,7 +3,7 @@ FROM openjdk:18-jdk-slim-buster
 RUN /bin/sh -c set -eux && \
     apt-get update && \
     apt-get install -y --no-install-recommends catdoc && \
-    rm -rf /var/lib/apt/lists/* \
+    rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 COPY xls2csv.sh /app
