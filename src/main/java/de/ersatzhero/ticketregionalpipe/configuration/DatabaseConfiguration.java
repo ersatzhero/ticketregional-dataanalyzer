@@ -13,7 +13,7 @@ public class DatabaseConfiguration {
     public DataSource dataSource(@Value("#{environment.DB_PASSWORD") String password, @Value("#{environment.DB_SCHEMA") String schema) {
         DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
         dataSourceBuilder.driverClassName("org.mariadb.jdbc.Driver");
-        dataSourceBuilder.url("jdbc:mariadb://localhost:3306/" + schema);
+        dataSourceBuilder.url("jdbc:mariadb://mariadb:3306/" + schema);
         dataSourceBuilder.username("root");
         dataSourceBuilder.password(password);
         return dataSourceBuilder.build();
