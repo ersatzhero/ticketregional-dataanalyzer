@@ -25,9 +25,9 @@ services:
   database01:
     image: mariadb
     restart: always
-    container_name: database-batch
+    container_name: database01
     environment:
-      MARIADB_DATABASE: spring-data
+      MARIADB_DATABASE: spring-batch
       MARIADB_ROOT_PASSWORD: my-secret-pw
     ports:
       - "3306:3306"
@@ -39,9 +39,8 @@ services:
       - database01
       - es01
     image: import-ticketregional
-    build: .
     restart: always
-    container_name: import-batch
+    container_name: batch01
     environment:
       ELASTICSEARCH_HOST: es01
       ELASTICSEARCH_PORT: 9200
